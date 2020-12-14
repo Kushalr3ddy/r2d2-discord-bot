@@ -1,5 +1,0 @@
-time:username:user_id:channel_id:content
-14/12/2020 02:47:30|OwO#8456:408785106942164992:778867744241352724:**<:cbot:459996048379609098> | babatunde**, Here is your password!
-**<:blank:427371936482328596> |** Use the command `owo autohunt 500 {password}`14/12/2020 02:47:30|OwO#8456:408785106942164992:778867744241352724:**🚫 | babatunde**, Wrong password! The command is `owo autohunt 500 {password}`!
-**<:blank:427371936482328596> |** Password will reset in 10 minutes14/12/2020 02:47:30|OwO#8456:408785106942164992:778867744241352724:**🚫 | babatunde**, Wrong password! The command is `owo autohunt 500 {password}`!
-**<:blank:427371936482328596> |** Password will reset in 10 minutes

@@ -28,6 +28,8 @@ async def on_message(ctx):
         return
     if str(ctx.author) in mods:
         return
+    if ctx.content.startswith("http"):
+            return
     #print(f"{now.strftime("%d/%m/%Y %H:%M:%S")}|{ctx.author}:{ctx.author.id}:{ctx.content}")
     file1 = open("myfile.txt", "a")  # append mode 
     file1.write(f"{t}|{ctx.channel.id}:{ctx.author}:{ctx.content}\n") 
