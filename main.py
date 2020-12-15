@@ -19,6 +19,8 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
+    with open("joined.log","a") as f:
+        f.write(f"{t}:{member} has joined")
     await member.send("Welcome! to DSU2024")
 
 
