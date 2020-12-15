@@ -10,7 +10,8 @@ import datetime as dt
 mods = []
 cmd =";"
 t = dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-client = commands.Bot(command_prefix= cmd)
+intents=discord.Intents.all()
+client = commands.Bot(command_prefix= cmd,intents=intents)
 #####events
 @client.event
 async def on_ready():
@@ -21,8 +22,13 @@ async def on_ready():
 async def on_member_join(member):
     with open("joined.log","a") as f:
         f.write(f"{t}:{member} has joined")
-    await member.send("Welcome! to DSU2024")
+    await member.send(f"Welcome! to DSU2024\nmake sure you select the role as per your section by reacting to the message in #section-roles")
 
+@client.event
+async def on_member_remove(member):
+    with open("left.log","a") as f:
+        f.write(f"{t}:{member} has left")
+    #await member.send("Welcome! to DSU2024")
 
 @client.event
 async def on_message(ctx):
@@ -35,13 +41,16 @@ async def on_message(ctx):
     #print(f"{now.strftime("%d/%m/%Y %H:%M:%S")}|{ctx.author}:{ctx.author.id}:{ctx.content}")
     file1 = open("myfile.txt", "a")  # append mode 
     file1.write(f"{t}|{ctx.channel.id}:{ctx.author}:{ctx.content}\n") 
-    result = check(str(ctx.content))
-    if result == True:
-        with open("bad_language.txt","a") as f:
-            f.write(f"{t}|{ctx.author}:{ctx.author.id}:{ctx.channel.id}:{ctx.content}")
-        #me = await client.get_user_info(ctx.author)
-        #await ctx.send_message(ctx.author, "#The message")
+    try:
+        result = check(str(ctx.content))
     
+        if result == True:
+            with open("bad_language.txt","a") as f:
+                f.write(f"{t}|{ctx.author}:{ctx.author.id}:{ctx.channel.id}:{ctx.content}")
+            #me = await client.get_user_info(ctx.author)
+            #await ctx.send_message(ctx.author, "#The message")
+    except:
+        pass
     await client.process_commands(ctx)
 
 ###
