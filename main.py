@@ -78,7 +78,7 @@ async def flip(ctx):
 @client.command()
 async def source(ctx):
     """source code for the bot"""
-    await ctx.send("https://repl.it/@KushalReddy1/SmugFearfulGlitch")
+    await ctx.send("https://github.com/kushalr3ddy/DSU2024-bot")
 
 
 ###
