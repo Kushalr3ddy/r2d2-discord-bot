@@ -32,6 +32,8 @@ async def on_member_remove(member):
 
 @client.event
 async def on_message(ctx):
+    id =ctx.guild.id
+    
     if str(ctx.author) == str(client.user):
         return
     if str(ctx.author) in mods:
@@ -40,7 +42,7 @@ async def on_message(ctx):
             return
     #print(f"{now.strftime("%d/%m/%Y %H:%M:%S")}|{ctx.author}:{ctx.author.id}:{ctx.content}")
     file1 = open("myfile.txt", "a")  # append mode 
-    file1.write(f"{t}|{ctx.channel.id}:{ctx.author}:{ctx.content}\n") 
+    file1.write(f"{t}|:{id}{ctx.channel.id}:{ctx.author}:{ctx.content}\n") 
     try:
         result = check(str(ctx.content))
     

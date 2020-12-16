@@ -1,11 +1,11 @@
-from flask import Flask
+from flask import Flask,render_template
 from threading import Thread
 
 app = Flask('r2d2')
 
 @app.route('/')
 def main():
-    return "Your bot is alive!"
+    return render_template("index.html")
 
 def run():
     app.run(host="0.0.0.0", port=8080)
