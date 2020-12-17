@@ -21,7 +21,7 @@ async def on_ready():
 @client.event
 async def on_member_join(member):
     with open("joined.log","a") as f:
-        f.write(f"{t}:{member} has joined")
+        f.write(f"{t}:{member} has joined\n")
     await member.send(f"Welcome! to DSU2024\nmake sure you select the role as per your section by reacting to the message in #section-roles")
 
 @client.event
