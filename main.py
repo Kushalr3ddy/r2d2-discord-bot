@@ -32,7 +32,6 @@ async def on_member_remove(member):
 
 @client.event
 async def on_message(ctx):
-    id =ctx.guild.id
     
     if str(ctx.author) == str(client.user):
         return
@@ -41,8 +40,8 @@ async def on_message(ctx):
     if ctx.content.startswith("http"):
             return
     #print(f"{now.strftime("%d/%m/%Y %H:%M:%S")}|{ctx.author}:{ctx.author.id}:{ctx.content}")
-    file1 = open("myfile.txt", "a")  # append mode 
-    file1.write(f"{t}|:{id}{ctx.channel.id}:{ctx.author}:{ctx.content}\n") 
+    """file1 = open("myfile.txt", "a")  # append mode 
+    file1.write(f"{t}|:{id}{ctx.channel.id}:{ctx.author}:{ctx.content}\n")""" 
     try:
         result = check(str(ctx.content))
     
@@ -104,7 +103,7 @@ async def clear(ctx,amount=1):
     usage: ;clear <no-of-messages>"""
     await ctx.channel.purge(limit=amount+1)
 
-@client.command()
+@client.command(hidden=True)
 @commands.has_permissions(manage_messages=True)
 async def set_prefix(ctx,prefix):
     """changes the command prefix of the bot"""
