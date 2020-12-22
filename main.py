@@ -15,7 +15,7 @@ client = commands.Bot(command_prefix= cmd,intents=intents)
 #####events
 @client.event
 async def on_ready():
-    await client.change_presence(status=discord.Status.online,activity=discord.Game(";help"))
+    await client.change_presence(status=discord.Status.online,activity=discord.Game(f"{cmd}help"))
     print(f"logged in as {client.user}")
 
 @client.event
@@ -121,6 +121,28 @@ async def wiki(ctx,query,lines=2):
     except:
         return
         #await ctx.send("search not found or some error has occured")
+
+@client.command()
+async def getusers(ctx, role: discord.Role):
+    """gives a text file containing specified users having specified role"""
+    members = role.members
+    with open(f"{role}.txt","w") as log:
+        log.write(t)
+        for member in members:
+            log.write(f'{member.display_name}:{member.id}\n')
+    
+        await ctx.send('done')
+    await ctx.send(file=discord.File(f'{role}.txt'))
+
+@client.command()
+async def get_members(ctx):
+    """gives a text file containing username of everyone in the server"""
+    with open('members.txt','w') as f:
+        f.write(t)
+        async for member in ctx.guild.fetch_members(limit=None):
+            print("{},{}".format(member,member.id), file=f,)
+    await ctx.send(file=discord.File('members.txt'))
+    print("done")
 ######error_handling
 @client.event
 async def on_command_error(ctx,error):
