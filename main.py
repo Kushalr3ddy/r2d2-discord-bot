@@ -127,7 +127,7 @@ async def getusers(ctx, role: discord.Role):
     """gives a text file containing specified users having specified role"""
     members = role.members
     with open(f"{role}.txt","w") as log:
-        log.write(t)
+        log.write(f"members in the server as of:{t}\n")
         for member in members:
             log.write(f'{member.display_name}:{member.id}\n')
     
@@ -138,7 +138,7 @@ async def getusers(ctx, role: discord.Role):
 async def get_members(ctx):
     """gives a text file containing username of everyone in the server"""
     with open('members.txt','w') as f:
-        f.write(t)
+        f.write(f"{t}\n")
         async for member in ctx.guild.fetch_members(limit=None):
             print("{},{}".format(member,member.id), file=f,)
     await ctx.send(file=discord.File('members.txt'))
