@@ -109,7 +109,7 @@ async def wiki(ctx,query,lines=2):
 @client.command()
 async def ping(ctx):
     """returns latency of the bot"""
-    await ctx.send('Pong! {0}'.format(round(client.latency, 2)))
+    await ctx.send(f'Pong! {round(client.latency, 2)}')
     
 @client.command()
 async def meme(ctx):
