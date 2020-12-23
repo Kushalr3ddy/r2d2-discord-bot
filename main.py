@@ -120,7 +120,7 @@ async def meme(ctx):
     password="notnoice",
     user_agent="getmemes")
     subreddit = reddit.subreddit("memes")
-    top = subreddit.top(limit=20)
+    top = subreddit.top(limit=50)
     memes =[]
     for _ in top:
         memes.append(_)
