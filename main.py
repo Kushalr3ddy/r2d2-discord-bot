@@ -7,6 +7,7 @@ from tester import check
 import keep_alive
 import wikipedia
 import datetime as dt
+import praw
 mods = []
 cmd =";"
 t = dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
@@ -23,6 +24,7 @@ async def on_member_join(member):
     with open("joined.log","a") as f:
         f.write(f"{t}:{member} has joined\n")
     await member.send(f"Welcome! to DSU2024\nmake sure you select the role as per your section by reacting to the message in #section-roles")
+    await member.send("click here and select your role according to your class:\nhttps://discord.com/channels/778854980110254090/785528354161426442/788287997971398676")
 
 @client.event
 async def on_member_remove(member):
@@ -71,7 +73,7 @@ async def joined(ctx,member:discord.Member):
 async def repeat(ctx,message,no=1):
     """Repeats a message
     usage:\n;repeat <your-message>"""
-    if no <101:
+    if no <20:
         await ctx.send(f"{message}\n"*no)
     else:
         await ctx.send("max no of times a message can be repeated is 20")
@@ -92,7 +94,42 @@ async def source(ctx):
     """source code for the bot"""
     await ctx.send("https://github.com/kushalr3ddy/DSU2024-bot")
 
+@client.command()
+async def wiki(ctx,query,lines=2):
+    """does wikipedia search"""
+    try:
+        if len(query) == 0:
+            await ctx.send("usage ;wiki [search]")
+        else:
+            await ctx.send(wikipedia.summary(query,lines))
+    except:
+        return
+        #await ctx.send("search not found or some error has occured")
 
+@client.command()
+async def ping(ctx):
+    await ctx.send('Pong! {0}'.format(round(client.latency, 2)))
+    
+@client.command()
+async def meme(ctx):
+    "gives a random meme from r/memes (still in beta)"
+
+    reddit = praw.Reddit(client_id="if9tH2HtQ8NooA",
+    client_secret="eKl40L3MpsXlLIBYiMAtwZU-DUAZ3Q",
+    username="DSUbot",
+    password="notnoice",
+    user_agent="getmemes")
+    subreddit = reddit.subreddit("memes")
+    top = subreddit.top(limit=10)
+    for _ in top:
+        memes =[]
+        memes.append(_)
+    img = choice(memes)
+    title = img.title
+    src = img.url
+    em = discord.Embed(title=title)
+    em.set_image(url =src)
+    await ctx.send(embed=em)
 ###
 
 
@@ -110,19 +147,9 @@ async def set_prefix(ctx,prefix):
     client.command_prefix=prefix
     await ctx.send(f"prefix set to ```{prefix}```")
 
-@client.command()
-async def wiki(ctx,query,lines=2):
-    """does wikipedia search"""
-    try:
-        if len(query) == 0:
-            await ctx.send("usage ;wiki [search]")
-        else:
-            await ctx.send(wikipedia.summary(query,lines))
-    except:
-        return
-        #await ctx.send("search not found or some error has occured")
 
 @client.command()
+@commands.has_permissions(manage_messages=True)
 async def getusers(ctx, role: discord.Role):
     """gives a text file containing specified users having specified role"""
     members = role.members
@@ -135,6 +162,7 @@ async def getusers(ctx, role: discord.Role):
     await ctx.send(file=discord.File(f'{role}.txt'))
 
 @client.command()
+@commands.has_permissions(manage_messages=True)
 async def get_members(ctx):
     """gives a text file containing username of everyone in the server"""
     with open('members.txt','w') as f:
@@ -143,6 +171,9 @@ async def get_members(ctx):
             print("{},{}".format(member,member.id), file=f,)
     await ctx.send(file=discord.File('members.txt'))
     print("done")
+
+
+
 ######error_handling
 @client.event
 async def on_command_error(ctx,error):
