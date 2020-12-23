@@ -121,8 +121,8 @@ async def meme(ctx):
     user_agent="getmemes")
     subreddit = reddit.subreddit("memes")
     top = subreddit.top(limit=10)
+    memes =[]
     for _ in top:
-        memes =[]
         memes.append(_)
     img = choice(memes)
     title = img.title
