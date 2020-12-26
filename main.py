@@ -8,6 +8,7 @@ import keep_alive
 import wikipedia
 import datetime as dt
 import praw
+import requests
 mods = []
 cmd =";"
 t = dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
@@ -131,6 +132,12 @@ async def meme(ctx):
     em = discord.Embed(title=title)
     em.set_image(url =src)
     await ctx.send(embed=em)
+
+@client.command()
+async def shorten(ctx,link):
+    """shorten url"""
+    re =requests.get(f"https://tinyurl.com/api-create.php?url={link}")
+    await ctx.send(re.text)
 ###
 
 
