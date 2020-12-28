@@ -44,7 +44,7 @@ async def on_message(ctx):
             return
     #print(f"{now.strftime("%d/%m/%Y %H:%M:%S")}|{ctx.author}:{ctx.author.id}:{ctx.content}")
     """file1 = open("myfile.txt", "a")  # append mode 
-    file1.write(f"{t}|:{id}{ctx.channel.id}:{ctx.author}:{ctx.content}\n")""" 
+    file1.write(f"{t}|:{id}{ctx.channel.id}:{ctx.author}:{ctx.content}\n")
     try:
         result = check(str(ctx.content))
     
@@ -54,7 +54,7 @@ async def on_message(ctx):
             #me = await client.get_user_info(ctx.author)
             #await ctx.send_message(ctx.author, "#The message")
     except:
-        pass
+        pass"""
     await client.process_commands(ctx)
 
 ###
@@ -97,7 +97,7 @@ async def source(ctx):
 
 @client.command()
 async def wiki(ctx,query,lines=2):
-    """does wikipedia search"""
+    """does wikipedia search (still under development)"""
     try:
         if len(query) == 0:
             await ctx.send("usage ;wiki [search]")
@@ -114,7 +114,7 @@ async def ping(ctx):
     
 @client.command()
 async def meme(ctx):
-    "gives a random meme from r/memes (still in beta)"
+    "gives a random meme from r/memes"
 
     reddit = praw.Reddit(client_id="if9tH2HtQ8NooA",
     client_secret="eKl40L3MpsXlLIBYiMAtwZU-DUAZ3Q",
