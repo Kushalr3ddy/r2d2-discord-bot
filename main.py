@@ -30,7 +30,7 @@ async def on_member_join(member):
 @client.event
 async def on_member_remove(member):
     with open("left.log","a") as f:
-        f.write(f"{t}:{member} has left")
+        f.write(f"\n{t}:{member} has left")
     #await member.send("Welcome! to DSU2024")
 
 @client.event
