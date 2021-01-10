@@ -13,6 +13,7 @@ twilio = "^6.48.0"
 purgomalum = "^1.0.3"
 discord = "^1.0.1"
 praw = "^7.1.0"
+profanity-check = "^1.0.3"
 [tool.poetry.dev-dependencies]
 
 [build-system]

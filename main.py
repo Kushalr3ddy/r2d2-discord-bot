@@ -9,6 +9,16 @@ import wikipedia
 import datetime as dt
 import praw
 import requests
+from bs4 import BeautifulSoup as bs
+
+headers = {
+    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5)",
+    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "accept-charset": "cp1254,ISO-8859-9,utf-8;q=0.7,*;q=0.3",
+    "accept-encoding": "gzip,deflate,sdch",
+    "accept-language": "en-US,en;q=0.8",
+}  
+
 mods = []
 cmd =";"
 t = dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
@@ -138,6 +148,29 @@ async def shorten(ctx,link):
     """shorten url"""
     re =requests.get(f"https://tinyurl.com/api-create.php?url={link}")
     await ctx.send(re.text)
+
+@client.command()
+async def insta(ctx,userid):
+    """info related to insta_id (does not work for now)"""
+    url = "https://instagram.com/{}".format(userid)
+    re = requests.get(url,headers=headers)
+    print(f"getting info {userid}")
+    soup =bs(re.text,"html.parser")
+    meta = soup.find("meta", property ="og:description")
+    await ctx.send(meta.attrs['content'])
+
+@client.command()
+async def random(ctx,text:str):
+    result =""
+    for i in text:
+        r = choice([1,0])
+        if r == 1:
+            i = i.upper()
+            result+=i
+        else:
+            i = i.lower()
+            result+=i
+    await ctx.send(result)
 ###
 
 
