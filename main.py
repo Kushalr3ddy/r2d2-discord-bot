@@ -161,6 +161,7 @@ async def insta(ctx,userid):
 
 @client.command()
 async def random(ctx,text:str):
+    """returns text in RAnDOm case"""
     result =""
     for i in text:
         r = choice([1,0])
