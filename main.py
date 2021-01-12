@@ -66,7 +66,9 @@ async def on_message(ctx):
     except:
         pass"""
     await client.process_commands(ctx)
-
+@client.command()
+async def status(ctx):
+    await ctx.send("https://r2d2-1610468848531.site24x7signals.com/")
 ###
 
 #####commands
