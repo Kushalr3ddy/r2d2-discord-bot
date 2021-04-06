@@ -1,4 +1,4 @@
-
+import os
 from tkn import token
 import discord
 from discord.ext import commands
@@ -17,7 +17,7 @@ headers = {
     "accept-charset": "cp1254,ISO-8859-9,utf-8;q=0.7,*;q=0.3",
     "accept-encoding": "gzip,deflate,sdch",
     "accept-language": "en-US,en;q=0.8",
-}  
+}
 
 mods = []
 cmd =";"
@@ -130,8 +130,8 @@ async def meme(ctx):
 
     reddit = praw.Reddit(client_id="if9tH2HtQ8NooA",
     client_secret="eKl40L3MpsXlLIBYiMAtwZU-DUAZ3Q",
-    username="DSUbot",
-    password="notnoice",
+    username=os.getenv("REDDIT_USERNAME"),
+    password=os.getenv("REDDIT_PASSWORD"),
     user_agent="getmemes")
     subreddit = reddit.subreddit("memes")
     top = subreddit.top(limit=50)
@@ -232,4 +232,4 @@ async def on_command_error(ctx,error):
 
 
 keep_alive.keep_alive()
-client.run(token)
+client.run(os.getenv("TOKEN"))

@@ -1,5 +1,5 @@
 import smtplib,ssl
-from tkn import password
+import os
 
 port = 465
 
@@ -11,7 +11,7 @@ from_mail = "botdsu@gmail.com"
 to_mail="pikkikushal@gmail.com"
 message= "hello"
 #server.connect()
-server.login(from_mail,password)
+server.login(from_mail,os.getenv("MAIL_PASSWORD"))
 
 def sendmail():
     server.sendmail(from_mail,to_mail,message)
