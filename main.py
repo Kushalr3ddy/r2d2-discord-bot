@@ -183,13 +183,22 @@ async def clear(ctx,amount=1):
     usage: ;clear <no-of-messages>"""
     await ctx.channel.purge(limit=amount+1)
 
-@client.command(hidden=True)
-@commands.has_permissions(manage_messages=True)
+def owner():
+    async def predicate(ctx):
+        return ctx.author.id == 679525489228251146
+    return commands.check(predicate)
+
+
+@client.command()
+@owner()
 async def set_prefix(ctx,prefix):
     """changes the command prefix of the bot"""
     client.command_prefix=prefix
     await ctx.send(f"prefix set to ```{prefix}```")
 
+@set_prefix.error
+async def clear_error(ctx, error):
+    await ctx.send('command resticted only to developer (for now)')
 
 @client.command()
 @commands.has_permissions(manage_messages=True)
