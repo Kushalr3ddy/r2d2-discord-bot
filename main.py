@@ -1,5 +1,4 @@
 import os
-from tkn import token
 import discord
 from discord.ext import commands
 from random import randint,choice
@@ -129,7 +128,7 @@ async def meme(ctx):
     "gives a random meme from r/memes"
 
     reddit = praw.Reddit(client_id="if9tH2HtQ8NooA",
-    client_secret="eKl40L3MpsXlLIBYiMAtwZU-DUAZ3Q",
+    client_secret=os.getenv("CLIENT_SECRET"),
     username=os.getenv("REDDIT_USERNAME"),
     password=os.getenv("REDDIT_PASSWORD"),
     user_agent="getmemes")
@@ -162,7 +161,7 @@ async def insta(ctx,userid):
     await ctx.send(meta.attrs['content'])
 
 @client.command()
-async def random(ctx,text:str):
+async def random(ctx,*,text:str):
     """returns text in RAnDOm case"""
     result =""
     for i in text:
