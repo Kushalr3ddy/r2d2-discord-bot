@@ -197,7 +197,7 @@ async def set_prefix(ctx,prefix):
     await ctx.send(f"prefix set to ```{prefix}```")
 
 @set_prefix.error
-async def clear_error(ctx, error):
+async def set_prefix_error(ctx, error):
     await ctx.send('command resticted only to developer (for now)')
 
 @client.command()
