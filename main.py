@@ -9,6 +9,7 @@ import datetime as dt
 import praw
 import requests
 from bs4 import BeautifulSoup as bs
+import asyncio
 
 headers = {
     "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5)",
@@ -224,6 +225,35 @@ async def get_members(ctx):
     await ctx.send(file=discord.File('members.txt'))
     print("done")
 
+@client.command()
+@commands.has_permissions(manage_messages=True)
+async def nuke(ctx):
+    """nukes a channel (cleans all messages in a channel)"""
+    pilot = ctx.author
+    set = "1234567890"
+    otp = ""
+    set_ = []
+
+    for _ in set:
+        set_.append(_)
+
+    while len(otp) < 4:
+        otp += choice(set_)
+
+    #print(otp)
+    #otp="1234"
+    await pilot.send(otp)
+    await ctx.send("enter otp:\n(otp timeout=30seconds)")
+
+    def check(message):
+        return message.author.id == pilot.id and str(message.content) == otp
+    try:
+        msg = await client.wait_for(event = 'message', check = check, timeout = 30.0)
+        await ctx.channel.clone(reason=None)
+        await ctx.channel.delete()
+        await pilot.send("done")
+    except:
+        await pilot.send("otp timeout")
 
 
 ######error_handling
