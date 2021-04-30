@@ -10,6 +10,7 @@ import praw
 import requests
 from bs4 import BeautifulSoup as bs
 import asyncio
+from instagramy import InstagramUser
 
 headers = {
     "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5)",
@@ -41,7 +42,7 @@ async def on_member_join(member):
 async def on_member_remove(member):
     with open("left.log","a") as f:
         f.write(f"\n{t}:{member} has left")
-    #await member.send("Welcome! to DSU2024")
+    await member.send("sorry to see you leave\n hope you made good friends here")
 
 @client.event
 async def on_message(ctx):
@@ -152,14 +153,9 @@ async def shorten(ctx,link):
     await ctx.send(re.text)
 
 @client.command()
-async def insta(ctx,userid):
+async def insta(ctx,user:InstagramUser):
     """info related to insta_id (does not work for now)"""
-    url = "https://instagram.com/{}".format(userid)
-    re = requests.get(url,headers=headers)
-    print(f"getting info {userid}")
-    soup =bs(re.text,"html.parser")
-    meta = soup.find("meta", property ="og:description")
-    await ctx.send(meta.attrs['content'])
+    
 
 @client.command()
 async def random(ctx,*,text:str):
@@ -227,33 +223,45 @@ async def get_members(ctx):
 
 @client.command()
 @commands.has_permissions(manage_messages=True)
-async def nuke(ctx):
-    """nukes a channel (cleans all messages in a channel)"""
+async def nuke(ctx,o=""):
     pilot = ctx.author
-    set = "1234567890"
-    otp = ""
-    set_ = []
-
-    for _ in set:
-        set_.append(_)
-
-    while len(otp) < 4:
-        otp += choice(set_)
-
-    #print(otp)
-    #otp="1234"
-    await pilot.send(otp)
-    await ctx.send("enter otp:\n(otp timeout=30seconds)")
-
-    def check(message):
-        return message.author.id == pilot.id and str(message.content) == otp
-    try:
-        msg = await client.wait_for(event = 'message', check = check, timeout = 30.0)
+    """nukes a channel (cleans all messages in a channel)"""
+    if ctx.author.id ==int(os.getenv("BOT_OWNER")) and o =="override":
         await ctx.channel.clone(reason=None)
         await ctx.channel.delete()
         await pilot.send("done")
-    except:
-        await pilot.send("otp timeout")
+    else:
+        set = "1234567890"
+        otp = ""
+        set_ = []
+
+        for _ in set:
+            set_.append(_)
+
+        while len(otp) < 4:
+            otp += choice(set_)
+
+        #print(otp)
+        #otp="1234"
+        await pilot.send(otp)
+        await ctx.send("enter otp:\n(otp timeout=30seconds)")
+
+        def check(message):
+            return message.author.id == pilot.id and str(message.content) == otp
+        try:
+            msg = await client.wait_for(event = 'message', check = check, timeout = 30.0)
+            await ctx.channel.clone(reason=None)
+            await ctx.channel.delete()
+            await pilot.send("done")
+        except:
+            await pilot.send("otp timeout")
+
+@client.command(pass_context=True)
+@commands.has_role("mod")
+async def role(ctx,user: discord.Member, role_: discord.Role):
+    await user.add_roles(role_)
+    await ctx.send(f"gave {user} role:{role_}")
+   
 
 
 ######error_handling
