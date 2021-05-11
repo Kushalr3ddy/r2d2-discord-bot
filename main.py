@@ -2,7 +2,6 @@ import os
 import discord
 from discord.ext import commands
 from random import randint,choice
-from tester import check
 import keep_alive
 import wikipedia
 import datetime as dt
@@ -117,8 +116,7 @@ async def wiki(ctx,query,lines=2):
         else:
             await ctx.send(wikipedia.summary(query,lines))
     except:
-        return
-        #await ctx.send("search not found or some error has occured")
+        await ctx.send("search not found or some error has occured")
 
 @client.command()
 async def ping(ctx):
@@ -129,7 +127,7 @@ async def ping(ctx):
 async def meme(ctx):
     "gives a random meme from r/memes"
 
-    reddit = praw.Reddit(client_id="if9tH2HtQ8NooA",
+    reddit = praw.Reddit(client_id= os.getenv("CLIENT_ID"),
     client_secret=os.getenv("CLIENT_SECRET"),
     username=os.getenv("REDDIT_USERNAME"),
     password=os.getenv("REDDIT_PASSWORD"),
@@ -155,6 +153,7 @@ async def shorten(ctx,link):
 @client.command()
 async def insta(ctx,user:InstagramUser):
     """info related to insta_id (does not work for now)"""
+    pass
     
 
 @client.command()
@@ -241,8 +240,6 @@ async def nuke(ctx,o=""):
         while len(otp) < 4:
             otp += choice(set_)
 
-        #print(otp)
-        #otp="1234"
         await pilot.send(otp)
         await ctx.send("enter otp:\n(otp timeout=30seconds)")
 
