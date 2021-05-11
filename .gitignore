@@ -1,3 +1,6 @@
+*.toml
+*.lock
+report.py
 tkn.py
 bad_language.txt
 myfile.txt
