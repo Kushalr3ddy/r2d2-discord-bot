@@ -9,7 +9,7 @@ import praw
 import requests
 from bs4 import BeautifulSoup as bs
 import asyncio
-from instagramy import InstagramUser
+
 
 headers = {
     "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5)",
@@ -34,8 +34,10 @@ async def on_ready():
 async def on_member_join(member):
     with open("joined.log","a") as f:
         f.write(f"{t}:{member} has joined\n")
-    await member.send(f"Welcome! to DSU2024\nmake sure you select the role as per your section by reacting to the message in #section-roles")
-
+        if member.guild.id == 778854980110254090:
+            await member.send(f"Welcome! to {member.guild.name}\nmake sure you select the role as per your section by reacting to the message in #section-roles")
+        else:
+            await member.send(f"Welcome! to {member.guild.name}")
 
 @client.event
 async def on_member_remove(member):
@@ -149,11 +151,6 @@ async def shorten(ctx,link):
     """shorten url"""
     re =requests.get(f"https://tinyurl.com/api-create.php?url={link}")
     await ctx.send(re.text)
-
-@client.command()
-async def insta(ctx,user:InstagramUser):
-    """info related to insta_id (does not work for now)"""
-    pass
     
 
 @client.command()

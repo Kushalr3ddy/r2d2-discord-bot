@@ -25,6 +25,5 @@ commands:
 ################still under development####################################
     <ul>
     <li>wiki (argument) (no of lines): wikipedia summary of the argument passed</li>
-    <li>insta (username): returns the instagram data of the username passed in</li>
     </ul>
     
