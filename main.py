@@ -34,7 +34,7 @@ async def on_ready():
 async def on_member_join(member):
     with open("joined.log","a") as f:
         f.write(f"{t}:{member} has joined\n")
-        if member.guild.id == 778854980110254090:
+        if int(member.guild.id) == 778854980110254090:
             await member.send(f"Welcome! to {member.guild.name}\nmake sure you select the role as per your section by reacting to the message in #section-roles")
         else:
             await member.send(f"Welcome! to {member.guild.name}")
@@ -42,7 +42,7 @@ async def on_member_join(member):
 @client.event
 async def on_member_remove(member):
     with open("left.log","a") as f:
-        f.write(f"\n{t}:{member} has left")
+        f.write(f"\n{member.guild.id}:{member.guild.name}  {t}:{member} has left")
     await member.send("sorry to see you leave\n hope you made good friends here")
 
 @client.event
@@ -219,10 +219,10 @@ async def get_members(ctx):
 
 @client.command()
 @commands.has_permissions(manage_messages=True)
-async def nuke(ctx,o=""):
+async def nuke(ctx,o=" "):
     pilot = ctx.author
     """nukes a channel (cleans all messages in a channel)"""
-    if ctx.author.id ==int(os.getenv("BOT_OWNER")) and o =="override":
+    if pilot.id ==int(os.getenv("BOT_OWNER")) and o =="override":
         await ctx.channel.clone(reason=None)
         await ctx.channel.delete()
         await pilot.send("done")
@@ -246,7 +246,6 @@ async def nuke(ctx,o=""):
             msg = await client.wait_for(event = 'message', check = check, timeout = 30.0)
             await ctx.channel.clone(reason=None)
             await ctx.channel.delete()
-            await pilot.send("done")
         except:
             await pilot.send("otp timeout")
 
