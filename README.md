@@ -14,6 +14,7 @@ commands:
     <li>meme (category): returns a random meme from r/memes (category= best,hot,new,rising etc)</li>
     <li>shorten (url): returns shortened url passed </li>
     <li>random (argument): returns text in RAnDOm case</li>
+    <li>nuke : use in a text channel to clean the channel of all messages (only those with mod priviledges can use it)</li>
     </ul>
 
 
