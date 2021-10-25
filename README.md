@@ -1,6 +1,5 @@
 # DSU2024-bot
 bot repo for a bot i made for college discord server
-[join DSU2024 discord](https://discord.com/invite/yc38n94jyM)
 
 commands:
     <ul>
