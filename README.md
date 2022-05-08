@@ -1,5 +1,5 @@
-# DSU2024-bot
-bot repo for a bot i made for college discord server
+# r2d2-bot
+bot repo for a bot i made for myself
 
 commands:
     <ul>
