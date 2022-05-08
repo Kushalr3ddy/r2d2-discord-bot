@@ -220,12 +220,12 @@ async def get_members(ctx):
 @client.command()
 @commands.has_permissions(manage_messages=True)
 async def nuke(ctx,o=" "):
-    pilot = ctx.author
     """nukes a channel (cleans all messages in a channel)"""
+    pilot = ctx.author
     if pilot.id ==int(os.getenv("BOT_OWNER")) and o =="override":
         await ctx.channel.clone(reason=None)
         await ctx.channel.delete()
-        await pilot.send("done")
+        #await pilot.send("done")
     else:
         set = "1234567890"
         otp = ""
