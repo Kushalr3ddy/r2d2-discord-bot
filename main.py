@@ -9,7 +9,9 @@ import praw
 import requests
 from bs4 import BeautifulSoup as bs
 import asyncio
+from dotenv import load_dotenv
 
+load_dotenv()
 
 headers = {
     "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5)",
